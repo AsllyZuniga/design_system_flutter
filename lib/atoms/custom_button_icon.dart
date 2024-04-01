@@ -4,16 +4,15 @@ class CustomButtonIcon extends StatelessWidget {
   final Color color;
   final String size;
   final bool disabled;
+  final IconData icon;
 
   const CustomButtonIcon({
     super.key,
     required this.color,
     required this.size,
     required this.disabled,
+    this icon=Icons.android,
   });
-
-  IconData get icon =>
-      Icons.android; // Ícono del muñequito de Android (botón de "home")
 
   double getButtonSize() {
     switch (size) {

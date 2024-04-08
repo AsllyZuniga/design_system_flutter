@@ -5,18 +5,18 @@ class CustomButton extends StatelessWidget {
   final String size;
   final bool disabled;
   final bool loading;
-  final String text;
+  final String? text;
+  final IconData? icon;
 
   const CustomButton({
     super.key,
-    required this.color,
-    required this.size,
-    required this.disabled,
-    required this.loading,
-    required this.text,
+    this.color = Colors.blue,
+    this.size = 'm',
+    this.disabled = false,
+    this.loading = false,
+    this.text,
+    this.icon,
   });
-
-  IconData get icon => Icons.wordpress;
 
   double getButtonSize() {
     switch (size) {
@@ -33,40 +33,50 @@ class CustomButton extends StatelessWidget {
     }
   }
 
+  Widget showLoading() {
+    return const SizedBox(
+      width: 24.0,
+      height: 24.0,
+      child: CircularProgressIndicator(
+        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+      ),
+    );
+  }
+
+  Widget showButtonText() {
+    return Row(
+      children: [
+        if (icon != null)
+          Icon(
+            icon,
+            color: Colors.white,
+            size: 24.0,
+          ),
+        if (text != null) const SizedBox(width: 8.0),
+        if (text != null)
+          Text(
+            text ?? '',
+            style: const TextStyle(color: Colors.white),
+          ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: disabled ? null : () {},
+      onTap: disabled ? null : () => print("Button pressed"),
       child: Container(
-        padding: EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8.0),
         decoration: BoxDecoration(
           color: disabled ? Colors.grey : color,
           borderRadius: BorderRadius.circular(8.0),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
-          children: [
-            loading
-                ? const SizedBox(
-                    width: 24.0,
-                    height: 24.0,
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                    ),
-                  )
-                : Icon(
-                    icon,
-                    color: Colors.white,
-                    size: 24.0,
-                  ),
-            const SizedBox(width: 8.0),
-            Text(
-              text,
-              style: const TextStyle(color: Colors.white),
-            ),
-          ],
+          children: [loading ? showLoading() : showButtonText()],
         ),
       ),
     );
   }
-}
+}F

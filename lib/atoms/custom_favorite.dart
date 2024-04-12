@@ -4,7 +4,8 @@ class CustomFavorite extends StatefulWidget {
   final bool value;
 
   const CustomFavorite({
- super.key, required this.value,
+    super.key,
+    required this.value,
   });
 
   @override
@@ -17,12 +18,6 @@ class _CustomFavoriteState extends State<CustomFavorite> {
   @override
   void initState() {
     super.initState();
-    _isFavorite = widget.value;
-  }
-
-  @override
-  void didUpdateWidget(covariant CustomFavorite oldWidget) {
-    super.didUpdateWidget(oldWidget);
     _isFavorite = widget.value;
   }
 

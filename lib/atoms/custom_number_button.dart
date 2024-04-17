@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_test/atoms/custom_button_icon.dart';
 
 class CustomNumber extends StatefulWidget {
   final bool disabled;
@@ -26,7 +27,7 @@ class _CustomNumberState extends State<CustomNumber> {
   @override
   void initState() {
     super.initState();
-    _currentNumber = widget.minValue; 
+    _currentNumber = widget.minValue;
   }
 
   @override
@@ -37,14 +38,20 @@ class _CustomNumberState extends State<CustomNumber> {
         widget.showLabel ? Text(widget.label) : const SizedBox.shrink(),
         Row(
           children: [
-            ElevatedButton(
+            CustomButtonIcon(
+              icon: Icons.remove,
+              color: Colors.blue.shade300,
+              size: 's',
+              disabled: false,
               onPressed: widget.disabled ? null : _decrementNumber,
-              child: const Text('-'),
             ),
             Text('$_currentNumber'),
-            ElevatedButton(
+            CustomButtonIcon(
+              icon: Icons.add,
+              color: Colors.blue.shade300,
+              size: 's',
+              disabled: false,
               onPressed: widget.disabled ? null : _incrementNumber,
-              child: const Text('+'),
             ),
           ],
         ),

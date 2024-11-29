@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/atoms/colors.dart';
 
 class CustomScrollbar extends StatelessWidget {
   const CustomScrollbar({
@@ -9,26 +10,29 @@ class CustomScrollbar extends StatelessWidget {
     this.scrollController,
   });
 
-  final Widget content; // Cambiado de `child` a `content`
-  final Axis direction; // Cambiado de `scrollDirection` a `direction`
-  final ScrollController?
-      scrollController; // Cambiado de `controller` a `scrollController`
-  final EdgeInsetsGeometry?
-      scrollPadding; // Cambiado de `padding` a `scrollPadding`
+  final Widget content;
+  final Axis direction;
+  final ScrollController? scrollController;
+  final EdgeInsetsGeometry? scrollPadding;
 
   @override
   Widget build(BuildContext context) {
     final activeController = scrollController ?? ScrollController();
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return RawScrollbar(
       controller: activeController,
-      thumbColor: Theme.of(context)
-          .primaryColor, // Usando `Theme.of(context)` directamente
+      thumbColor: isDarkMode
+          ? CustomColors.primaryFixedDim
+          : CustomColors.primaryColor.withOpacity(0.7),
+      trackColor: isDarkMode
+          ? CustomColors.surfaceContainerHigh
+          : CustomColors.surfaceContainerLow,
+      trackBorderColor: Colors.transparent, 
       thumbVisibility: true,
-      trackColor: Theme.of(context).colorScheme.outline,
       trackVisibility: true,
-      thickness: 9.8,
-      radius: const Radius.circular(4),
+      thickness: 8.0,
+      radius: const Radius.circular(10),
       child: SingleChildScrollView(
         controller: activeController,
         scrollDirection: direction,
